@@ -39,7 +39,7 @@
 
 <!-- image body -->
 <div class="container">
-<h2>Create User</h2>
+<h2>Sign up</h2>
 <!-- enter user details -->
   <form>
     <div class="form-group">
