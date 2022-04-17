@@ -19,6 +19,9 @@
       <li class="nav-item">
         <a class="nav-link" href="signup.php">Signup</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="upload.php">Upload</a>
+      </li>
         <?php
         if(isset($_SESSION['userId'])){
             echo '
