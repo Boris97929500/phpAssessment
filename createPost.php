@@ -14,98 +14,58 @@
 <body >
 
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Post</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Signup</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Login</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<?php  require "header.php" ?>
 
-<!-- image body -->
+
 <div class="container">
 <h2>Create Post</h2>
-<!-- enter post information -->
-  <form>
-    <div class="form-group">
-      <label for="exampleTitle">Title</label>
-      <input type="email" class="form-control" id="exampleTitle" aria-describedby="username" placeholder="Enter Title">
-    </div>
-    <div class="form-group">
-      <label for="exampleImageURL">Image URL</label>
-      <input type="email" class="form-control" id="exampleImageURL" aria-describedby="emailHelp" placeholder="Enter Image URL">
-    
-    </div>
-    <div class="form-group">
-      <label for="exampleComment">Comment</label>
-      <input type="password" class="form-control" id="exampleComment" placeholder="exampleComment">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<main class="container " style="width: 80%">
+
+    <form action="includes/createpost.inc.php" method="POST">
+
+      <?php
+        // VALIDATION: Check that Error Message Type exists in GET superglobal
+        if(isset($_GET['error'])){
+          // (i) Empty fields validation 
+          if($_GET['error'] == "emptyfields"){
+            $errorMsg = "Please fill in all fields";
+
+          // (ii) Internal server error 
+          } else if ($_GET['error'] == "sqlerror") {
+            $errorMsg = "An internal server error has occurred";
+          }
+
+          // (iii) Dynamic Error Alert based on Variable Value 
+          echo '<div class="alert alert-danger" role="alert">' . $errorMsg . '</div>';
+
+        }
+      ?>
+      
+      <!-- 1. TITLE -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Title" value="">
+      </div>  
+
+      <!-- 2. IMAGE URL -->
+      <div class="mb-3">
+        <label for="imageurl" class="form-label">Image URL</label>
+        <input type="text" class="form-control" name="imageurl" placeholder="Image URL" value="" >
+      </div>
+
+      <!-- 3. COMMENT SECTION -->
+      <div class="mb-3">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea class="form-control" name="comment" rows="3" placeholder="Comment" ></textarea>
+      </div>
+
+
+      <!-- 6. SUBMIT BUTTON -->
+      <button type="submit" name="post-submit" class="btn btn-primary w-50 m-3">Post</button>
+    </form>
+  </main>
 </div>
+<?php  require "footer.php" ?>
 
-
-<!--  footer -->
-<footer class="text-center text-white" style="background-color: #f1f1f1;">
-  <!-- Grid container -->
-  <div class="container pt-4">
-    <!-- Section: Social media -->
-    <section class="mb-1">
-      <!-- Facebook -->
-      <a
-        class="btn btn-link btn-floating btn-md text-dark m-2"
-        href="#"
-        role="button"
-        data-mdb-ripple-color="dark"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a
-        class="btn btn-link btn-floating btn-md text-dark m-2"
-        href="#"
-        role="button"
-        data-mdb-ripple-color="dark"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-
-      <!-- Instagram -->
-      <a
-        class="btn btn-link btn-floating btn-md text-dark m-2"
-        href="#"
-        role="button"
-        data-mdb-ripple-color="dark"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2022 All Rights Reserved:
-    <a class="text-dark" href="#">carReview.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
 </body>
 </html>

@@ -18,9 +18,7 @@
 
 <!-- image body -->
 <div class="container">
-    <div >
-        <img class="imgCover" src="carCover.jpg"></img>
-    </div>
+    <h2>Read Post</h2>
 </div>
 
 

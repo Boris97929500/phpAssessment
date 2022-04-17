@@ -14,7 +14,7 @@
         <a class="nav-link" href="index.php">Home </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="readPost.php">Post</a>
+        <a class="nav-link" href="posts.php">Post</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="signup.php">Signup</a>
@@ -22,6 +22,9 @@
         <?php
         if(isset($_SESSION['userId'])){
             echo '
+            <li class="nav-item">
+                <a class="nav-link" href="createpost.php">Create Post</a>
+            </li>
             <li class="nav-item">
             <form action="includes/logout.inc.php" action="POST">
                 <button type="submit" class="btn btn-primary" name="logout-submit">Log out</button>
