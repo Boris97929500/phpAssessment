@@ -14,47 +14,70 @@
 <body >
 
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Post</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Signup</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Login</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<?php  require "header.php" ?>
+
 
 <!-- image body -->
 <div class="container">
-    <!-- <div >
-        <img class="imgCover" src="carCover.jpg"></img>
-    </div> -->
 
-  <form>
-    <div class="form-group">
-      <label for="exampleInputUsername">Username</label>
-      <input type="email" class="form-control" id="exampleInputUsername" aria-describedby="username" placeholder="Enter username">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+
+  <div>
+    <form action="includes/login.inc.php" method="POST">
+      <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email" aria-describedby="username" name="mailuid" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="pwd" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary" name="login-submit">Log in</button>    
+
+    </form>
+
+  </div>
+
 </div>
+
+  <!-- Error Message -->
+  <div class="container">
+    <h3>system message</h3>
+    <!-- 2. Error Messages during Login Process! -->
+    <?php
+        if(isset($_GET['loginerror'])){
+        // (i) Empty fields in Login 
+        if($_GET['loginerror'] == "emptyfields"){
+          $errorMsg = "Please fill in all fields";
+
+        // (ii) SQL Error
+        } else if ($_GET['loginerror'] == "sqlerror"){
+          $errorMsg = "Internal server error ";
+
+        // (iii) Password does NOT match DB 
+        } else if ($_GET['loginerror'] == "wrongpwd"){
+          $errorMsg = "password do not match";
+          
+        // (iv) uidUsers / emailUsers do not match
+        } else if ($_GET['loginerror'] == "nouser"){
+          $errorMsg = "The user does not exist";
+        }
+        // Display alert
+        echo '<div class="alert alert-danger" role="alert">'
+          .$errorMsg.
+        '</div>';
+
+      // Display SUCCESS message!
+      } else if (isset($_GET['login']) == "success"){
+        echo '<div class="alert alert-success" role="alert">
+          You have successfully logged in.
+        </div>';    
+      }
+    ?>
+  </div>
+
+
+
+
 
 
 <!--  footer -->

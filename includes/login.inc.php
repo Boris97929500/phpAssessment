@@ -1,4 +1,6 @@
 <?php
+
+
   // 1. Check if user clicked submit button 
   if(isset($_POST['login-submit'])){
 
@@ -12,7 +14,7 @@
     // 4. Check fields are not blank
     if(empty($mailuid) || empty($password)){
       // Send emptyfields error
-      header("Location: ../index.php?loginerror=emptyfields"); 
+      header("Location: ../login.php?loginerror=emptyfields"); 
       exit(); 
     
     // 5. Check if User Exists in Database
@@ -26,7 +28,7 @@
       // (iii) Prepare and send statement to database to check for errors
       if(!mysqli_stmt_prepare($statement, $sql)) {
         // ERROR: Something wrong when preparing the SQL - exit
-        header("Location: ../index.php?loginerror=sqlerror"); 
+        header("Location: ../login.php?loginerror=sqlerror"); 
         exit(); 
       } else {
         // (iv) SUCCESS: Bind our user data with statement & run SQL statement 
@@ -47,7 +49,7 @@
 
           // (i) User exists - BUT Password is NOT a match using bcrypt
           if($pwdCheck == false){
-            header("Location: ../index.php?loginerror=wrongpwd");
+            header("Location: ../login.php?loginerror=wrongpwd");
             exit(); 
 
           // (ii) User exists - Password match & init session
@@ -59,18 +61,18 @@
             
             $_SESSION['userUid'] = $row['uidUsers']; 
             
-            header("Location: ../index.php?login=success");
+            header("Location: ../login.php?login=success");
             exit(); 
           
           // (iii). Catch all for unexpected error 
           } else {
-            header("Location: ../index.php?loginerror=wrongpwd");
+            header("Location: ../login.php?loginerror=wrongpwd");
             exit(); 
           }
         
         // (iv). Error if no user was found in DB
         } else {
-          header("Location: ../index.php?loginerror=nouser");
+          header("Location: ../login.php?loginerror=nouser");
           exit(); 
         }
       }
@@ -78,7 +80,7 @@
   
   } else {
     // If users try to access this file via url, redirect user
-    header("Location: ../index.php");
+    header("Location: ../login.php");
     exit();
   }
 
