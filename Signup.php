@@ -39,25 +39,108 @@
 
 <!-- image body -->
 <div class="container">
-<h2>Sign up</h2>
-<!-- enter user details -->
-  <form>
-    <div class="form-group">
-      <label for="exampleInputUsername">Username</label>
-      <input type="email" class="form-control" id="exampleInputUsername" aria-describedby="username" placeholder="Enter username">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+<main class="container p-4 bg-light mt-3">
+    <!-- signup.inc.php - Will process the data from this form-->
+    <form action="includes/signup.inc.php" method="post">
+      <h3>Signup Form</h3>
+
+      <?php
+        // 1. validations 
+        if(isset($_GET['error'])){
+
+          // (i) Empty fields validation 
+          if($_GET['error'] == "emptyfields"){
+            $errorMsg = "Please fill in all fields";
+
+          // (ii) Invalid Email and Password error
+          } else if ($_GET['error'] == "invalidmailuid") {
+            $errorMsg = "Invalid email and Password";
+
+          // (iii) Invalid Email error
+          } else if ($_GET['error'] == "invalidmail") {
+            $errorMsg = "Invalid email";
+
+          // (iv) Invalid Username error
+          } else if ($_GET['error'] == "invaliduid") {
+            $errorMsg = "Invalid username";
+
+          // (v) Password Confirmation error
+          } else if ($_GET['error'] == "passwordcheck") {
+            $errorMsg = "Passwords do not match";
+
+          // (vi) Username already exists
+          } else if ($_GET['error'] == "usertaken") {
+            $errorMsg = "Username already taken";
+
+          // (vii) Internal server error 
+          } else if ($_GET['error'] == "sqlerror") {
+            $errorMsg = "An internal server error has occurred - please try again later";
+          
+          }
+          echo '<div class="alert alert-danger" role="alert">' . $errorMsg . '</div>';
+        
+        // 2. sucess message
+        } else if (isset($_GET['signup']) == "success") {
+          echo '<div class="alert alert-success" role="alert">You have successfully signed up!</div>';    
+        }
+
+        ?>
+
+      <!-- 1. USERNAME -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" name="uid" placeholder="Username" value=
+          <?php 
+          // (i) If an invalid email - echo back the correct username (uid)
+            if(isset($_GET['uid'])){ 
+              echo($_GET['uid']);
+            } else {
+              echo null;
+            }
+          ?> 
+        >
+      </div>  
+
+      <!-- 2. EMAIL -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="mail" placeholder="Email Address" value=
+          <?php 
+            // (ii) If an invalid username - echo back the correct email (mail)
+            if(isset($_GET['mail'])){ 
+              echo($_GET['mail']);
+            } else {
+              echo null;
+            }
+          ?> 
+        >
+      </div>
+
+      <!-- 3. PASSWORD -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" name="pwd" placeholder="Password">
+      </div>
+
+      <!-- 4. PASSWORD CONFIRMATION -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" name="pwd-repeat" placeholder="Confirm Password">
+      </div>
+
+      <!-- 5. SUBMIT BUTTON -->
+      <button type="submit" name="signup-submit" class="btn btn-primary btn-lg">Signup</button>
+    </form>
+  </main>
+
+
+
+
+
+
+
+
+
 
 
 <!--  footer -->

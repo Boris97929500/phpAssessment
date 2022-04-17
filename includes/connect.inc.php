@@ -7,8 +7,8 @@ $password= "";
 $dbname= "carreview";
 
 //2. Create connection variable with database passing in the configs
-$conn = new mysql($servername, $username, $password, $dbname);
-
+//$conn = new mysql($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 //3. Check if connection is successful
 
 if ($conn->connect_error) {
