@@ -9,7 +9,7 @@
     $title = $_POST['title'];
     $imageURL = $_POST['imageurl'];
     $comment = $_POST['comment'];
-
+    $user_id = $_SESSION['userId'];
 
     // 5. Check if any fields are empty 
     if (empty($title ) || empty($imageURL) || empty($comment) ) {
@@ -21,7 +21,7 @@
     } else {
       // (i) Declare Template SQL with ? Placeholders to save values to table
 
-      $sql = "INSERT INTO posts ( title, imageurl, comments) VALUES (?, ?, ?)"; 
+      $sql = "INSERT INTO posts ( title, imageurl, comments, users_id ) VALUES (?, ?, ?, ?)"; 
 
       // (ii) Init SQL statement
       $statement = mysqli_stmt_init($conn);
@@ -35,7 +35,7 @@
       } else {
         // (iv) SUCCESS: Bind our user data with statement + escape strings
 
-        mysqli_stmt_bind_param($statement, "sss", $title, $imageURL, $comment);
+        mysqli_stmt_bind_param($statement, "sssi", $title, $imageURL, $comment, $user_id);
 
         // (v) Execute the SQL Statement with user data
         mysqli_stmt_execute($statement);
