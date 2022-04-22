@@ -1,9 +1,3 @@
-/* space out navbar */
-li {
-    padding: 0 4rem;
-}
-
-/* cover image styling */
-.imgCover{
-    width: 100%;
+*{
+    background-color: pink;
 }
